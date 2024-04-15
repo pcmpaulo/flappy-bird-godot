@@ -1,0 +1,28 @@
+[gd_scene load_steps=3 format=3 uid="uid://bft16insqa4sj"]
+
+[ext_resource type="Theme" uid="uid://iu3al26xf13d" path="res://assets/base_theme.tres" id="1_4whpn"]
+[ext_resource type="Script" path="res://scenes/main_menu/main_menu.gd" id="1_vxmcm"]
+
+[node name="MainMenu" type="CanvasLayer"]
+script = ExtResource("1_vxmcm")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_4whpn")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+texture_filter = 1
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+alignment = 1
+
+[node name="Start" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Start"
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Start" to="." method="_on_start_pressed"]

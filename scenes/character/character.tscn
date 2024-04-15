@@ -1,0 +1,37 @@
+[gd_scene load_steps=7 format=3 uid="uid://c4acx74vtkikn"]
+
+[ext_resource type="Script" path="res://scenes/character/character.gd" id="1_m780h"]
+[ext_resource type="Texture2D" uid="uid://2n75owpb7blh" path="res://assets/bird1.png" id="2_paarh"]
+[ext_resource type="Texture2D" uid="uid://b1kohjnv6d851" path="res://assets/bird2.png" id="3_c78pv"]
+[ext_resource type="Texture2D" uid="uid://byan5a0eqcyl5" path="res://assets/bird3.png" id="4_7v4tj"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ddxfk"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_paarh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_c78pv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_7v4tj")
+}],
+"loop": true,
+"name": &"default",
+"speed": 6.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_6b7g5"]
+radius = 15.0
+
+[node name="Character" type="CharacterBody2D"]
+script = ExtResource("1_m780h")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_ddxfk")
+frame_progress = 0.839116
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_6b7g5")

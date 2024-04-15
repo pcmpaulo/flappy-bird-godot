@@ -1,0 +1,65 @@
+[gd_scene load_steps=11 format=3 uid="uid://djmtf25i6ctcr"]
+
+[ext_resource type="Script" path="res://scenes/main.gd" id="1_8w4mk"]
+[ext_resource type="PackedScene" uid="uid://xu6dxqpg7psx" path="res://scenes/pipe/pipe.tscn" id="2_b15e2"]
+[ext_resource type="Texture2D" uid="uid://8ghccav4ni36" path="res://assets/bg.png" id="2_r7mx4"]
+[ext_resource type="PackedScene" uid="uid://c68xkujmosjsv" path="res://scenes/pause_menu/pause_menu.tscn" id="3_b5n2n"]
+[ext_resource type="Theme" uid="uid://iu3al26xf13d" path="res://assets/base_theme.tres" id="3_ci65j"]
+[ext_resource type="PackedScene" uid="uid://c4acx74vtkikn" path="res://scenes/character/character.tscn" id="3_uukkt"]
+[ext_resource type="PackedScene" uid="uid://76bmogxrwo7h" path="res://scenes/end_game_menu/end_game_menu.tscn" id="4_3no6t"]
+[ext_resource type="PackedScene" uid="uid://dnafvt6uvk4f8" path="res://scenes/ground/ground.tscn" id="4_ml6ex"]
+[ext_resource type="PackedScene" uid="uid://bft16insqa4sj" path="res://scenes/main_menu/main_menu.tscn" id="5_2tdt3"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xl5if"]
+
+[node name="Main" type="Node"]
+script = ExtResource("1_8w4mk")
+pipe_preload = ExtResource("2_b15e2")
+pause_menu_preload = ExtResource("3_b5n2n")
+end_game_menu_preload = ExtResource("4_3no6t")
+main_menu_preload = ExtResource("5_2tdt3")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Container" type="PanelContainer" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("3_ci65j")
+theme_override_styles/panel = SubResource("StyleBoxEmpty_xl5if")
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Container"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/margin_top = 64
+
+[node name="HudContainer" type="VBoxContainer" parent="CanvasLayer/Container/MarginContainer"]
+layout_mode = 2
+
+[node name="ScoreLabel" type="Label" parent="CanvasLayer/Container/MarginContainer/HudContainer"]
+texture_filter = 1
+layout_mode = 2
+size_flags_horizontal = 4
+text = "0"
+
+[node name="Background" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("2_r7mx4")
+centered = false
+
+[node name="Character" parent="." instance=ExtResource("3_uukkt")]
+position = Vector2(222, 212)
+
+[node name="SpawnTimer" type="Timer" parent="."]
+wait_time = 2.0
+autostart = true
+
+[node name="Pipes" type="Node2D" parent="."]
+
+[node name="Ground" parent="." instance=ExtResource("4_ml6ex")]
+position = Vector2(0, 768)
+
+[connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]
+[connection signal="hit" from="Ground" to="." method="_on_ground_hit"]
